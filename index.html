@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookie Popup</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Cookies Assignment 10</h1>
+    <button onclick="setCookie()">Set Cookie</button>
+    <p>Saved Cookie: <span id="cookieDisplay">No cookie set</span></p>
+
+    <script>
+      function setCookie(cname, cvalue, exdays) {
+        const username = prompt("Set your Username:");
+        if (username) {
+          const d = new Date();
+          d.setTime(d.getTime() + 7 * 24 * 60 * 60 * 1000);
+          const expires = "expires=" + d.toUTCString();
+          document.cookie = "username=" + username + ";" + expires + ";path=/";
+          checkCookie();
+        } else {
+          alert("Username was not set.");
+        }
+      }
+
+      function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(";");
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == " ") {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+
+      function checkCookie() {
+        const user = getCookie("username");
+        const displayElement = document.getElementById("cookieDisplay");
+        if (user) {
+          displayElement.textContent = user;
+        } else {
+          displayElement.textContent = "No cookie set";
+        }
+      }
+
+      window.onload = displayCookie;
+    </script>
+  </body>
+  <footer>
+    <p>&copy; Copyright Zabil Tahir, 2024</p>
+  </footer>
+</html>
